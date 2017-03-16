@@ -1,5 +1,5 @@
 var routingApp = angular.module('routingApp', [ 'ngRoute', 'ui.grid',
-		'ui.grid.pagination' ]);
+		'ui.grid.pagination', 'ui.bootstrap' ]);
 
 console.log("Entered app.js")
 
@@ -95,3 +95,97 @@ routingApp.controller(
 					}
 					$window.location.href="http://localhost:8080/Gyn/pages/tabular_forms.html";
 				});
+
+/* Controller for displaying tabular forms */
+routingApp.config(
+		[ '$routeProvider', '$locationProvider',
+				function($routeProvider, $locationProvider) {
+					$routeProvider.when('/patientDetails', {
+						templateUrl : 'Gyn/pages/PatientDetails.html',
+						controller : 'MainCtrl'
+					}).when('/clinicalExam', {
+						templateUrl : 'Gyn/pages/ClinicalExam.html',
+						controller : 'ClinicalExamCtrl',
+					}).when('/pathology', {
+						templateUrl : 'Gyn/pages/Pathology.html',
+						controller : 'PathologyCtrl'
+					}).when('/radiology', {
+						templateUrl : 'Gyn/pages/Radiology.html',
+						controller : 'RadiologyCtrl'
+					}).when('/radiotherapy', {
+						templateUrl : 'Gyn/pages/Radiotherapy.html',
+						controller : 'RadiotherapyCtrl'
+					}).when('/followUp', {
+						templateUrl : 'Gyn/pages/Followup.html',
+						controller : 'FollowupCtrl'
+					}).otherwise({
+						redirectTo : '/patientDetails'
+					});
+					$locationProvider.html5Mode({
+						enabled : true,
+						requireBase : false
+					})
+				} ]);
+
+var TabCtrl = function($scope) {
+	$scope.tabs = [ {
+		slug : 'patientDetails',
+		title : "Patient Details"
+	}, {
+		slug : 'clinicalExam',
+		title : "Clinical Exam"
+	}, {
+		slug : 'pathology',
+		title : "Pathology"
+	}, {
+		slug : 'radiology',
+		title : "Radiology"
+	}, {
+		slug : 'radiotherapy',
+		title : "Radiotherapy"
+	}, {
+		slug : 'followUp',
+		title : "Follow Up"
+	}
+
+	];
+};
+
+ClinicalExamCtrl = function($scope, $location) {
+
+};
+
+PathologyCtrl = function($scope, $location) {
+
+};
+
+RadiologyCtrl = function($scope, $location) {
+
+};
+
+RadiotherapyCtrl = function($scope, $location) {
+
+};
+
+FollowupCtrl = function($scope, $location) {
+
+};
+
+MainCtrl = function($scope, $location) {
+
+	$scope.onTabSelected = function(tab) {
+		var route;
+		if (typeof tab === 'string') {
+			switch (tab) {
+			case 'dashboard':
+				route = tab;
+				break;
+			default:
+				route = tab;
+				break;
+			}
+		}
+		$location.path('/' + route);
+	};
+
+};
